@@ -178,7 +178,7 @@ $HMMER_path --cpu $threads --domtblout $outfolder/temp/pfam.domtblout $pfam_db $
 
 echo -e "[$(printf '%(%F %T)T\n')][INFO] TransDecoder Step 3/3: predict the likely coding regions"
 $TransDecoder_path/TransDecoder.Predict -t $fasta_trme --retain_pfam_hits $outfolder/temp/pfam.domtblout --retain_blastp_hits \
-$outfolder/temp/blastp.outfmt6 --single_best_only -O $outfolder/temp 
+$outfolder/temp/blastp.outfmt6 -O $outfolder/temp 
 
 #RepeatMasker
 echo -e "${yellow}
@@ -196,7 +196,7 @@ fi
 
 echo -e "[$(printf '%(%F %T)T\n')][INFO] masking finished, moving files"
 mkdir $outfolder/ExplorATE_inputs
-mv -t $outfolder/ExplorATE_inputs $outfolder/temp/blastp.outfmt6 $outfolder/temp/$(basename $fasta_trme).transdecoder.gff3 $(basename $fasta_trme).out
+mv -t $outfolder/ExplorATE_inputs $outfolder/temp/blastp.outfmt6 $outfolder/temp/$(basename $fasta_trme).transdecoder.gff3 $(basename $fasta_trme).out $(basename $fasta_trme).transdecoder.pep $(basename $fasta_trme).transdecoder.cds $(basename $fasta_trme).transdecoder.bed pfam.domtblout 
 echo "[$(printf '%(%F %T)T\n')][INFO] removing temporary files"
 rm -r $outfolder/temp*
 echo -e "${green}[$(printf '%(%F %T)T\n')][INFO] input files are ready in directory $outfolder/ExplorATE_inputs ${reset}\n"
